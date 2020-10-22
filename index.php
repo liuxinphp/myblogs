@@ -10,4 +10,5 @@ $sql = "insert into category (className,orderBy,pid) values ('日本新闻',11,1
 $array = $pdo->exec($sql);
 echo 'a';
 echo 'aaa';
+echo 'aabb';
 ?>
