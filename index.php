@@ -8,5 +8,4 @@ require_once(ROOT_PATH."Frame".DS."Frame.class.php");
 $pdo = new \frame\vendor\pdowrapper();
 $sql = "insert into category (className,orderBy,pid) values ('日本新闻',11,1)";
 $array = $pdo->exec($sql);
-$arrays = $pdo->exec($sql);
 ?>
