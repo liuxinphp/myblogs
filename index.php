@@ -11,5 +11,4 @@ $array = $pdo->exec($sql);
 echo 'a';
 echo 'aaa';
 echo 'aabb';
-
 ?>
