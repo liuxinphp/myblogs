@@ -7,6 +7,6 @@ final class IndexModel extends BaseModel{
     public function fetchAll(){
     //构建sql语句 
      $sql = "select * from category";
-      return $this->pdo->ftell($sql);   
+      return $this->pdo->fetchAll($sql);   
      }
 }
