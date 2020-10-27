@@ -1,13 +1,9 @@
 <?php
 namespace Admin\Model;
 use \Frame\Libs\Db;
+use \Frame\libs\BaseModel;
 //定义最终的首页模型
-final class IndexModel{
-    //私有的保存数据库对象的属性
-    private $db = null;
-    public function __CONSTRUCT(){
-        $this->db = DB::getInstance();
-    }
+final class IndexModel extends BaseModel{
     //获取多行数据
     public function fetchAll(){
         //构建查询sql语句
