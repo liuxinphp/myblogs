@@ -5,7 +5,7 @@ use Frame\Vendor\PDOWrapper;
 abstract class BaseModel{
     //受保护的PDO对象
     protected static $db = NULL;
-    //私有的静态保存保存不同模型的对象数组属性
+    //私有的静态保存不同模型的对象数组属性
     private static $arrModelObj = array();
     //构造方法
     public function __construct(){
