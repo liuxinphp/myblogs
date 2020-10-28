@@ -32,7 +32,6 @@ final class Frame{
     private static function initConst(){
         define("VIEW_PATH",APP_PATH."View".DS);
         define("FRAME_PATH",ROOT_PATH."Frame".DS);//frame目录
-
     }
     //私有的类自动加载
     private static function initAutoload(){
