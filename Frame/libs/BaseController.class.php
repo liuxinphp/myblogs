@@ -12,6 +12,9 @@ abstract class BaseController{
     private function initSmarty(){
         //创建smarty对象
         $smarty = new \Frame\Vendor\smarty();
+        //smarty配置
+        $smarty->left_delimiter = "<{";//左定界符
+        $smarty->right_delimiter= "}>";//右定界符
         
     }
 }
