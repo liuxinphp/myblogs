@@ -6,7 +6,7 @@ use \Frame\libs\BaseModel;
 final class UserModel extends BaseModel{
     public function fetchAll(){
     //构建sql语句 
-     $sql = "select * from category";
+     $sql = "select * from category by id desc";
       return $this->pdo->fetchAll($sql);   
      }
 }
