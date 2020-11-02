@@ -35,6 +35,12 @@ final class categoryController extends BaseController{
         $data['className'] = $_POST['className'];
         $data['orderBy'] = $_POST['orderBy'];
         $data['pid'] = $_POST['pid'];
+        //获取分类名数据
+        $categoryName = categoryModel::getInstance()->categoryName();      
+        if(in_array($data['className'],$categoryName)){
+            $this->jump("分类{$data['className']}已存在","?c=category"); 
+            die(); 
+        }
         $modelObj = categoryModel::getInstance();
         if($modelObj->insert($data)){
             $this->jump("分类{$data['className']}添加成功","?c=category");

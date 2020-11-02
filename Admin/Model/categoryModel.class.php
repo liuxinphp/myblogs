@@ -24,4 +24,9 @@ final class categoryModel extends BaseModel{
         //返回无限极分类数组
         return $categorys;
     }
+    //获取已存在分类名称数据
+    public function categoryName(){
+        $sql = "select className from {$this->table}";
+        return $this->pdo->select($sql);
+    }
 }

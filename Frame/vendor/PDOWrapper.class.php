@@ -70,6 +70,18 @@ final class PDOWrapper{
             $this->showError($e);
         }
     }
+     //查找数据
+     public function select($sql){
+        try{
+            //执行sql语句并返回结果集对象
+            $PDOStatement = $this->pdo->query($sql);
+            //从结果集取出一条记录并返回二维数组
+            return $PDOStatement->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            echo "sql语句执行失败";
+            $this->showError($e);
+        }
+    }
     //获取行数
     public function rowCount($sql){
         try{

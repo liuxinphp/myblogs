@@ -35,6 +35,7 @@ abstract class BaseModel{
         $sql = "delete from {$this->table} where id={$id}";
         return $this->pdo->exec($sql);
     }
+    
     //插入数据
     public function insert($data){
         $fields = "";
