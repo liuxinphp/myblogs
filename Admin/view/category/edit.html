@@ -35,7 +35,7 @@
                     <td>
                         <select name="pid">
                             <option value="0">无</option>
-                            <{foreach $categorys as $category}>
+                            <{foreach $categoryName as $category}>
                             <option value="<{$category.id}>" <{if $category.id eq $arr.pid}>selected<{/if}>>
                                 <{str_repeat("---",$category.level*2)}>
                                 <{$category.className}></option>

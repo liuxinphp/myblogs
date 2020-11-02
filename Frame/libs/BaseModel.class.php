@@ -30,6 +30,11 @@ abstract class BaseModel{
         $sql = "select * from {$this->table}";
         return $this->pdo->fetchAll($sql);
     }
+    //获取一行数据
+    public function fetchOne($id){
+        $sql = "select * from {$this->table} where {$id}";
+        return $this->pdo->fetchOne($sql);
+    }
     //删除数据
     public function delete($id){
         $sql = "delete from {$this->table} where id={$id}";
@@ -48,6 +53,17 @@ abstract class BaseModel{
         $values = rtrim($values,",");
         //构建sql语句
         $sql = "insert into {$this->table} ($fields) values ($values)";
+        return $this->pdo->exec($sql);
+    }
+    //更新数据
+    public function update($data,$id){
+        $str = '';
+        foreach($data as $key=>$value){
+            $str.="$key='$value',";
+        }
+        $str = \rtrim($str,",");
+        //构建sql语句
+        $sql = "update {$this->table} set {$str} where id={$id}";
         return $this->pdo->exec($sql);
     }
 }

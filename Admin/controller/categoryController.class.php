@@ -49,4 +49,33 @@ final class categoryController extends BaseController{
             $this->jump("分类{$data['className']}添加失败","?c=category");
         }
     }
+    //修改
+    public function edit(){
+        $id=$_GET['id'];
+        //获取全部分类
+        $categoryName = categoryModel::getInstance()->categoryList(categoryModel::getInstance()->fetchAll());
+        //获取修改id的分类
+        $arr = categoryModel::getInstance()->fetchOne("id={$id}");
+        //赋值
+        $this->smarty->assign(
+            array(
+                'categoryName' => $categoryName,
+                'arr' => $arr
+            )
+        );
+        $this->smarty->display("category/edit.html");
+    }
+    //更新
+    public function update(){
+        $data['className'] = $_POST['className'];
+        $data['orderBy'] = $_POST['orderBy'];
+        $data['pid'] = $_POST['pid'];
+        $id=$_GET['id'];
+        $modelObj = categoryModel::getInstance();
+        if($modelObj->update($data,$id)){
+            $this->jump("分类:{$data['categoryName']}修改成功","?c=category");
+        }else{
+            $this->jump("分类:{$data['categoryName']}修改失败","?c=category");
+        }
+    }
 }
