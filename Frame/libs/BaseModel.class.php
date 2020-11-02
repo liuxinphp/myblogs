@@ -35,4 +35,18 @@ abstract class BaseModel{
         $sql = "delete from {$this->table} where id={$id}";
         return $this->pdo->exec($sql);
     }
+    //插入数据
+    public function insert($data){
+        $fields = "";
+        $values = "";
+        foreach($data as $key=>$value){
+            $fields .= "$key,";
+            $values .= "'$value',";
+        }
+        $fields = rtrim($fields,",");
+        $values = rtrim($values,",");
+        //构建sql语句
+        $sql = "insert into {$this->table} ($fields) values ($values)";
+        return $this->pdo->exec($sql);
+    }
 }
