@@ -30,4 +30,9 @@ abstract class BaseModel{
         $sql = "select * from {$this->table}";
         return $this->pdo->fetchAll($sql);
     }
+    //删除数据
+    public function delete($id){
+        $sql = "delete from {$this->table} where id={$id}";
+        return $this->pdo->exec($sql);
+    }
 }

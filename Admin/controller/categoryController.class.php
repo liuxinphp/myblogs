@@ -11,4 +11,15 @@ final class categoryController extends BaseController{
         $this->smarty->assign("categorys",$categorys);
         $this->smarty->display("category/index.html");
     }
+    //删除
+    public function delete(){
+        $id=$_GET['id'];
+        //创建模型对象
+        $modelObj = categoryModel::getInstance();
+        if($modelObj->delete($id)){
+            $this->jump("id为{$id}的分类删除成功","?c=category");
+        }else{
+            $this->jump("id为{$id}的分类删除失败","?c=category");
+        }
+    }
 }
