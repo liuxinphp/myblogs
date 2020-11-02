@@ -37,8 +37,9 @@ final class categoryController extends BaseController{
         $data['pid'] = $_POST['pid'];
         //获取分类名数据
         $categoryName = categoryModel::getInstance()->categoryName();      
-        if(in_array($data['className'],$categoryName)){
-            $this->jump("分类{$data['className']}已存在","?c=category"); 
+        $categoryNames=array_column($categoryName,'className');//将二维数组转换为一维数组
+        if(in_array($data['className'],$categoryNames)){
+            $this->jump("分类:{$data['className']}已存在，请重新添加！！","?c=category"); 
             die(); 
         }
         $modelObj = categoryModel::getInstance();
