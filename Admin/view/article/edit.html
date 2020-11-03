@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>文章管理</title>
+    <link rel="stylesheet" type="text/css" href="./public/Admin/css/public.css" />
+    <script type="text/javascript" src="/public/Admin/Js/editor/kindeditor-all-min.js"></script>
+    <script type="text/javascript" src="/public/Admin/js/editor/kindeditor-all.js"></script>
+    <script charset="utf-8" src="./public/Admin/Js/editor/lang/zh-CN.js"></script>
+  
+    <script>
+        KindEditor.ready(function(K) {
+                    window.editor = K.create('#editor_id',{
+                        cssPath:'/public/plugin/editor/plugins/code/prettify.css',
+                        uploadJson:'/upload/image.php',
+                        resizeType :1,
+                        allowPreviewEmoticons : true,
+                        allowImageUpload : true,
+                      });
+                });
+       </script>
+</head>
+<body>
+<table width="100%" border="0" align="center" cellspacing="1" cellpadding="1" class="border">
+    <tr><td>文章管理</td></tr>
+    <tr>
+        <td>
+            <a href="?c=article&a=index">管理首页</a>
+            <a href="?c=article&a=add">添加文章</a>
+        </td>
+    </tr>
+</table>
+<br />
+<form name="form1" method="POST" action="?c=article&a=update">
+    <table width="100%" border="1" cellpadding="1" cellspacing="1" class="border">
+        <tr><td align="center">修改文章</td></tr>
+        <tr>
+            <td width="100" height="30" align="center">分类</td>
+            <td>
+                <select name="category_id">
+                    <option value="0">无分类</option>
+                    <{foreach $categorys as $category}>
+                    <option value="<{$category.id}>" <{if $category.id eq $article.category_id}> selected <{/if}>>
+                        <{str_repeat("---",$category.level*2)}>
+                        <{$category.className}></option>
+                    <{/foreach}>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td height="30" align="center">标题</td>
+            <td><input name="title" type="text" size="90" maxlength="50" value="<{$article.title}>"></td>
+        </tr>
+        <tr>
+            <td height="30" align="center">排序</td>
+            <td>
+                <input name="orderBy" type="text" value="<{$article.orderBy}>" size="2" maxlength="3">
+                <span>置顶:</span>
+                <input name="top" type="checkbox" value="1" <{if $article.top}> checked <{/if}>>
+            </td>
+        </tr>
+        <tr>
+            <td height="30" align="center">内容</td>
+            <td><textarea id="editor_id" name="content" style="width:100%;height:300px;"><{$article.content}></textarea></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="hidden" name="id" value="<{$article.id}>">
+                <input type="submit" value="修改">
+                <input type="button" onclick="history.go(-1)" value="返回">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
+
+
+
+
+
+
+
