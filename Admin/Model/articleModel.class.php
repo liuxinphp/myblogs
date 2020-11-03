@@ -9,6 +9,5 @@ final class articleModel extends BaseModel{
         $sql .="left join category on article.category_id = category.id ";
         $sql .="left join user on article.user_id = user.id";
         return $this->pdo->fetchAll($sql);
-
     }
 }
