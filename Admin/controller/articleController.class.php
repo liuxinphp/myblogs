@@ -35,4 +35,43 @@ final class articleController extends BaseController{
             $this->jump("文章添加失败","?c=article");
         }
     }
+    //删除
+    public function delete(){
+        $id = $_GET['id'];
+        $modelObj = articleModel::getInstance()->delete($id);
+        if($modelObj){
+            $this->jump("id为{$id}的文章删除成功！","?c=article");
+        }else{
+            $this->jump("id为{$id}的文章删除失败!","?c=article");
+        }
+    }
+    //修改
+    public function edit(){
+        $id = $_GET['id'];
+        //获取分类数据
+        $categorys = categoryModel::getInstance()->categoryList(categoryModel::getInstance()->fetchAll());
+        //查询文章信息
+        $article = articleModel::getInstance()->fetchOne("id={$id}");
+        //调用修改模板
+        $this->smarty->assign(array(
+            'categorys'=>$categorys,
+            'article'=>$article
+        ));
+        $this->smarty->display("article/edit.html");
+    }
+    //更新
+    public function update(){
+        $id=$_GET['id'];
+        $data['top'] = isset($_POST['top'])?1:0;
+        $data['title'] = $_POST['title'];
+        $data['content'] = $_POST['content'];
+        $data['orderBy'] = $_POST['orderBy'];
+        $data['category_id'] = $_POST['category_id'];
+        $modelObj = articleModel::getInstance()->update($data,$id);
+        if($modelObj){
+            $this->jump("文章{$data['title']}修改成功","?c=article");
+        }else{
+            $this->jump("文章{$data['title']}修改失败","?c=article");
+        }
+    }
 }
