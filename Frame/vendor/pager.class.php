@@ -10,7 +10,6 @@ final class pager{
     private $last;       //尾页
     private $prev;       //上一页
     private $next;       //下一页
-
     //构造方法
     public function __construct($records,$pageSize,$page,$params=array())
     {

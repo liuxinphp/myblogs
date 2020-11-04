@@ -12,12 +12,27 @@ final class articleController extends BaseController{
         if(!empty($_REQUEST['category_id'])) $where .= "AND category_id=".$_REQUEST['category_id'];
         if(!empty($_REQUEST['keyword'])) $where .= "AND title like '%".$_REQUEST['keyword']."%'";
         //分页
+        $pageSize = 5;
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $startRow = ($page-1)*$pageSize;
+        $records = articleModel::getInstance()->rowCount($where);     //记录数
+        $params = array(
+            'c' =>CONTROLLER,
+            'a' =>ACTION
+        );
+        //如果分页参数存在，则添加到地址栏
+        if(!empty($_REQUEST['category_id'])) $params['category_id'] = $_REQUEST['category_id'];
+        if(!empty($_REQUEST['keyword'])) $params['keyword'] = $_REQUEST['keyword'];
 
         //连表查询文章信息
-        $articles = articleModel::getInstance()->fetchAllWithJoin($where);
+        $articles = articleModel::getInstance()->fetchAllWithJoin($where,$startRow,$pageSize);
+        //创建分页类对象
+        $pageObj = new \Frame\Vendor\pager($records,$pageSize,$page,$params);
+        $pageStr = $pageObj->showPage();
         $this->smarty->assign(array(
             "categorys"=>$categorys,
-            "articles"=>$articles
+            "articles"=>$articles,
+            "pageStr"=>$pageStr
         ));
         $this->smarty->display("article/index.html");
     }

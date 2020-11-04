@@ -66,4 +66,9 @@ abstract class BaseModel{
         $sql = "update {$this->table} set {$str} where id={$id}";
         return $this->pdo->exec($sql);
     }
+    //获取记录数
+    public function rowCount($where="2>1"){
+        $sql = "select * from {$this->table} where {$where}";
+        return $this->pdo->rowCount($sql);
+    }
 }
