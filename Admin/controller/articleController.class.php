@@ -2,13 +2,23 @@
 namespace Admin\controller;
 use Admin\Model\articleModel;
 use Admin\Model\categoryModel;
-use \Frame\libs\BaseController;
-use \Frame\Vendor\PDOWrapper;
+use \Frame\libs\BaseController;  
 final class articleController extends BaseController{
     public function index(){
+        //获取分类数据
+        $categorys = categoryModel::getInstance()->categoryList(categoryModel::getInstance()->fetchAll());
+        //构建搜索条件
+        $where = "2>1 ";
+        if(!empty($_REQUEST['category_id'])) $where .= "AND category_id=".$_REQUEST['category_id'];
+        if(!empty($_REQUEST['keyword'])) $where .= "AND title like '%".$_REQUEST['keyword']."%'";
+        //分页
+
         //连表查询文章信息
-        $articles = articleModel::getInstance()->fetchAllWithJoin();
-        $this->smarty->assign("articles",$articles);
+        $articles = articleModel::getInstance()->fetchAllWithJoin($where);
+        $this->smarty->assign(array(
+            "categorys"=>$categorys,
+            "articles"=>$articles
+        ));
         $this->smarty->display("article/index.html");
     }
     //添加文章
@@ -69,9 +79,9 @@ final class articleController extends BaseController{
         $data['category_id'] = $_POST['category_id'];
         $modelObj = articleModel::getInstance()->update($data,$id);
         if($modelObj){
-            $this->jump("文章{$data['title']}修改成功","?c=article");
+            $this->jump("文章：{$data['title']}修改成功","?c=article");
         }else{
-            $this->jump("文章{$data['title']}修改失败","?c=article");
+            $this->jump("文章：{$data['title']}修改失败","?c=article");
         }
     }
 }
