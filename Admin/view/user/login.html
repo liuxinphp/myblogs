@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <title>管理员登录</title>  
+      <link href="./Public/Admin/Css/public.css" rel="stylesheet" type="text/css">
+      <link href="./Public/Admin/Css/login.css" rel="stylesheet" type="text/css">
+      <script type="text/javascript">
+        //初始设置用户名为当前焦点
+        function SetFocus(){
+            if(document.form1.username.value=""){
+                document.form1.username.focus();
+            }else{
+                document.form1.username.select();
+            }
+        }
+        //当表单加载完成，设置用户名为当前焦点
+        window.onload=SetFocus;
+        //验证表单
+        function checkForm(){
+            //定义用户名和密码的正则表达式
+            var pattern=/^[a-zA-Z0-9]{5,15}$/;//用户名只能包含5-15位字母或数字
+            //验证用户名是否合法
+            if(!pattern.test(document.form1.username.value)){
+                window.alert("用户名不合法");
+                document.form1.username.focus();//重新定位光标
+                return false;//阻止表单提交
+            }else if(!pattern.test(document.form1.password.value)){
+                window.alert("密码不合法");
+                document.form1.username.focus();//重新定位光标
+                return false;//阻止表单提交
+            }else if(document.form1.verify.value.length!=4){
+                window.alert("验证码长度必须位4位！");
+                document.form1.verify.focus();
+                return false;//阻止表单提交
+            }
+        }
+      </script>
+    </head>
+    <body>
+        <center>
+            <form name="form1" method="POST" action="?c=user&a=loginCheck" id="form1" onsubmit="return checkForm();">
+                <div id="position">
+                    <div class="login-left">
+                        <div class="login-left-login"><img src="./public/Admin/Images/login.png" width="296" width="50"></div>
+                        <div class="login-left-content">
+                            <ul>
+                                <li>知识改变命运</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="login-right">
+                        <div id="UpdatePanel1">
+                            <div class="login-right-title">网站后台管理系统</div>
+                            <div class="login-right-input">
+                                <table width="200" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td nowrap="nowrap" align="right" id="tdleft">用户名:</td>
+                                        <td><input name="username" type="text" id="username" class="input" size="10" maxlength="20"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:30px" align="right">密码:</td>
+                                        <td style="height:30px"><input name="password" type="password" id="password" class="input" size="10" maxlength="32"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">验证码</td>
+                                        <td><input id="verify" name="verify" class="input2" maxlength="4"><img style="float:right;cursor:pointer" width="70" src="?c=User&a=captcha" onclick="this.src='?c=user&a=captcha&'+Math.random()"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:30px" align="right"></td>
+                                        <td style="height:30px" nowrap="nowrap">
+                                            <input type="submit" name="btnLogin" value="登录" id="btnLogin" class="button">
+                                            <input type="reset" name="btnTest" value="清除" id="btnTest" class="button">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </center>
+        <div id="header"></div>
+        <div id="content"><img src="./Public/Admin/Images/login-copy.gif"></div>
+        <div id="buttom">
+            <div class="copy2">
+                <nobr>Copyright 2006-<?php echo date("Y")?>itcast.cn All right Reserved</nobr>
+            </div>
+        </div>
+    </body>
+</html>
+<script language="javascript">
+SetFocus();
+
+</script>
