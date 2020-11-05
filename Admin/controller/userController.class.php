@@ -1,7 +1,7 @@
 <?php
 namespace Admin\controller;
 use \Frame\libs\BaseController;
-use Admin\Model\userModel;
+use \Admin\Model\userModel;
 final class userController extends BaseController{
     public function index(){
         $users = userModel::getInstance()->fetchAll();
@@ -70,5 +70,10 @@ final class userController extends BaseController{
     }
     public function login(){
         $this->smarty->display("user/login.html");
+    }
+    //调取验证码方法
+    public function captcha(){
+        //创建验证码对象
+        $captchaObj = new \Frame\Vendor\captcha();
     }
 }
