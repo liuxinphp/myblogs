@@ -68,4 +68,7 @@ final class userController extends BaseController{
             $this->jump("修改失败","?c=user");
         }
     }
+    public function login(){
+        $this->smarty->display("user/login.html");
+    }
 }
