@@ -102,6 +102,7 @@ final class userController extends BaseController{
         $_SESSION['id'] = $user['id'];
         $this->jump("登录成功，欢迎您{$username},正在跳转...","?c=Index&a=index");
     }
+    //退出
     public function logout(){
         unset($_SESSION['username']);
         unset($_SESSION['id']);
