@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html";charset="utf-8">
+        <title>链接管理</title>
+        <script type="text/javascript">
+            function confirmDel(id){
+                if(window.confirm('你真的要删除吗?')){
+                    location.href="?c=link&a=delete&id="+id;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1">
+            <tr>链接管理</tr>
+            <tr>
+                <td>
+                    <a href="?c=link&a=index">管理首页</a>
+                    <a href="?c=link&a=add">添加链接</a>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" border="1" align="center" cellpadding="1" cellspacing="1">
+            <tr>
+                <th width="10%">编号</th>
+                <th width="30%">地址</th>
+                <th width="40%">名称</th>
+                <th width="20%">操作</th>
+            </tr>
+            <{foreach $urls as $url}>
+            <tr align="center">
+                <td><{$url.id}></td>
+                <td><{$url.url}></td>
+                <td><{$url.domain}></td>
+                <td>
+                    <a href="?c=link&a=edit">编辑</a>
+                    <a href="javascript:void(0)" onClick="confirmDel(<{$article.id}>)">删除</a>
+                </td>
+            </tr>
+            <{/foreach}>
+        </table>
+    </body>
+</html>
