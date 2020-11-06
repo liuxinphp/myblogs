@@ -15,7 +15,7 @@ final class captcha{
         $this->width        = $width;
         $this->height       = $height;
         $this->fontsize     = $fontSize;
-        $this->fontfile     = "D:\phpstudy_pro\WWW\blog\public\Admin\images\Candara.ttf";
+        $this->fontfile     = "D:\phpstudy_pro\WWW\project\myblogs\public\Admin\images\Candara.ttf";
         $this->img          = $this->createImg();
         $this->createBg();//给画布创建背景颜色
         $this->code         =  $this->createCode();

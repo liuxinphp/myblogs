@@ -76,4 +76,36 @@ final class userController extends BaseController{
         //创建验证码对象
         $captchaObj = new \Frame\Vendor\captcha();
     }
+    //登录
+    public function loginCheck(){
+        //获取表单值
+        $username = $_POST['username'];
+        $password = md5($_POST['password']);
+        $verify = $_POST['verify'];
+        if(strtolower($verify)!=strtolower($_SESSION['captcha'])){
+            $this->jump("验证码不正确","?c=user&a=login");
+        }
+        //验证用户名和密码是否正确
+        $user = userModel::getInstance()->fetchOne("userName = '$username' and password = '$password'");
+        if(empty($user)){
+            $this->jump("用户名或密码不正确","?c=user&a=login");
+        }
+        //更新用户资料
+        $data['last_login_ip'] = $_SERVER['REMOTE_ADDR'];
+        $data['last_login_time'] = time();
+        $data['login_times'] = $user['login_times']+1;
+        if(!userModel::getInstance()->update($data,$user['id'])){
+            $this->jump("用户信息更新失败","?c=user&a=login");
+        }
+        //将信息写入session中
+        $_SESSION['username'] = $username;
+        $_SESSION['id'] = $user['id'];
+        $this->jump("登录成功，欢迎您{$username},正在跳转...","?c=Index&a=index");
+    }
+    public function logout(){
+        unset($_SESSION['username']);
+        unset($_SESSION['id']);
+        session_destroy();
+        $this->jump("退出成功！！","?c=user&a=login");
+    }
 }
