@@ -5,6 +5,7 @@ use Admin\Model\linkModel;
 use \Frame\libs\BaseController;
 final class linkController extends BaseController{
     public function index(){
+        $this->denyAccess();
         $urls = linkModel::getInstance()->fetchAll();
         $this->smarty->assign("urls",$urls);
         $this->smarty->display("link/index.html");

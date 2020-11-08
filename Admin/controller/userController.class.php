@@ -4,6 +4,7 @@ use \Frame\libs\BaseController;
 use \Admin\Model\userModel;
 final class userController extends BaseController{
     public function index(){
+        $this->denyAccess();
         $users = userModel::getInstance()->fetchAll();
         $this->smarty->assign("users",$users);
         $this->smarty->display("user/index.html");

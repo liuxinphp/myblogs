@@ -42,3 +42,11 @@ id int not null primary key auto_increment,
 url varchar(30) not null,
 domain varchar(30) not null
 )ENGINE=MYISAM charset=utf8;
+
+//评论表
+create table if not exists `comment`(
+id int not null primary key auto_increment,
+user varchar(50) not null,
+content text not null,
+time int(20) not null
+)ENGINE=MYISAM charset=utf8;

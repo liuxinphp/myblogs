@@ -5,6 +5,7 @@ use Admin\Model\categoryModel;
 use \Frame\libs\BaseController;  
 final class articleController extends BaseController{
     public function index(){
+        $this->denyAccess();
         //获取分类数据
         $categorys = categoryModel::getInstance()->categoryList(categoryModel::getInstance()->fetchAll());
         //构建搜索条件

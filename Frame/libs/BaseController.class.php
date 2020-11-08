@@ -26,4 +26,10 @@ abstract class BaseController{
         header("refresh:{$time};url={$url}");
         die();
     }
+    //验证登录
+    public function denyAccess(){
+        if(!isset($_SESSION['username'])){
+            $this->jump("请先登录！","?c=user&a=login");
+        }
+    }
 }
