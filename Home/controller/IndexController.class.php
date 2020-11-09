@@ -23,6 +23,5 @@ final class IndexController extends BaseController{
             "months"=>$months
         ));
         $this->smarty->display("index/index.html");
-        
     }
 }
