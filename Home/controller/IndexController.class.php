@@ -1,5 +1,7 @@
 <?php
 namespace Home\controller;
+
+use \Home\Model\articleModel;
 use \Home\Model\linkModel;
 use \Home\Model\IndexModel;
 use \Frame\libs\BaseController;
@@ -13,9 +15,12 @@ final class IndexController extends BaseController{
         $categorys = categoryModel::getInstance()->categoryList(
             //获取无限极分类数据
             categoryModel::getInstance()->fetchAllWithCount());
+        //(3)获取文章按月份归档数据
+        $months = articleModel::getInstance()->fetchAllWithMonth();
         $this->smarty->assign(array(
             "links"=>$links,
-            "categorys"=>$categorys
+            "categorys"=>$categorys,
+            "months"=>$months
         ));
         $this->smarty->display("index/index.html");
         
