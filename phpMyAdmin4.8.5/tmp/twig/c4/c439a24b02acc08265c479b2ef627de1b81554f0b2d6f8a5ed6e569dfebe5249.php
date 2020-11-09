@@ -143,6 +143,6 @@ class __TwigTemplate_f0bb3df1ae522371aa3ec9336f2f2caead49297b58158a301e91503f657
 
     public function getSourceContext()
     {
-        return new Twig_Source("", "columns_definitions/column_name.twig", "D:\\phpstudy_pro\\WWW\\myblog\\phpMyAdmin4.8.5\\templates\\columns_definitions\\column_name.twig");
+        return new Twig_Source("", "columns_definitions/column_name.twig", "D:\\phpstudy_pro\\WWW\\project\\myblogs\\phpMyAdmin4.8.5\\templates\\columns_definitions\\column_name.twig");
     }
 }

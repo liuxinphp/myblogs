@@ -17,10 +17,32 @@ final class IndexController extends BaseController{
             categoryModel::getInstance()->fetchAllWithCount());
         //(3)获取文章按月份归档数据
         $months = articleModel::getInstance()->fetchAllWithMonth();
+        //(4)构建搜索条件
+            $where = "2>1";
+            if(!empty($_REQUEST['title'])) $where.="and title like '%".$_REQUEST['title']."%'";
+            if(!empty($_GET['category_id'])) $where.="and category_id=".$_GET['category_id'];
+        //(5)构建分页参数
+            $pageSize = 2;
+            $page = isset($_GET['page']) ? $_GET['page'] :1;
+            $startRow = ($page-1)*$pageSize;
+            $records = articleModel::getInstance()->rowCount($where);
+            $params = array(
+                'c'=>CONTROLLER,
+                'a'=>ACTION
+            );
+            if(!empty($_REQUEST['title'])) $params['title'] = $_REQUEST['title'];
+            if(!empty($_GET['category_id'])) $params['category_id'] = $_GET['category_id'];
+            //(6)调用分类
+            $pageObj = new \Frame\vendor\pager($records,$pageSize,$page,$params);
+            $pageStr = $pageObj->showPage();
+
+        //(7)获取首页文章列表数据
+        $articles = articleModel::getInstance()->fetchAllwithJoin($where,$startRow,$pageSize);
         $this->smarty->assign(array(
             "links"=>$links,
             "categorys"=>$categorys,
-            "months"=>$months
+            "months"=>$months,
+            "articles"=>$articles
         ));
         $this->smarty->display("index/index.html");
     }
