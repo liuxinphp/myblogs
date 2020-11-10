@@ -49,7 +49,7 @@ final class articleController extends BaseController{
     public function insert(){
         $data['category_id'] = $_POST['category_id'];
         $data['title'] = $_POST['title'];
-        $data['user_id'] = 1;
+        $data['user_id'] = $_SESSION['id'];
         $data['content'] = $_POST['content'];
         $data['orderBy'] = $_POST['orderBy'];
         $data['addate'] = time();

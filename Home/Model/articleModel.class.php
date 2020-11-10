@@ -14,13 +14,21 @@ final class articleModel extends BaseModel{
     }
     //联合查询文章信息
     public function fetchAllWithJoin($where="2>1",$startRow=0,$pageSize=5){
-        //构建sql查询语句
-        $sql = "select article.*,category.className,user.userName from {$this->table} ";
+        //构建sql语句
+        $sql  = "select article.*,user.userName,category.className from {$this->table} ";
+        $sql .= "left join user on article.user_id=user.id ";
+        $sql .= "left join category on article.category_id=category.id ";
+        $sql .= "where {$where} ";
+        $sql .= "order by article.id desc ";
+        $sql .= "limit {$startRow},{$pageSize}";
+        return $this->pdo->fetchAll($sql);
+    }
+    //文章详细内容
+    public function fetchOneWithJoin($where="2>1",$orderBy = "article.id ASC"){
+        $sql = "select article.*,user.userName,category.className from {$this->table} ";
+        $sql.= "left join user on article.user_id=user.id ";
         $sql.= "left join category on category.id=article.category_id ";
-        $sql.= "left join user on user.id=article.user_id " ;
-        $sql.= "where {$where} ";
-        $sql.= "order by article.id desc ";
-        $sql.="limit {$startRow},{$pageSize}";
+        $sql.= "order by {$orderBy}";
         return $this->pdo->fetchAll($sql);
     }
 }
