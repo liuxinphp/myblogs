@@ -28,7 +28,14 @@ final class articleModel extends BaseModel{
         $sql = "select article.*,user.userName,category.className from {$this->table} ";
         $sql.= "left join user on article.user_id=user.id ";
         $sql.= "left join category on category.id=article.category_id ";
+        $sql.= "where {$where} ";
         $sql.= "order by {$orderBy}";
-        return $this->pdo->fetchAll($sql);
+        return $this->pdo->fetchOne($sql);
+    }
+    //阅读次数
+    public function updateRead($id){
+        $sql = "update {$this->table} set `read`=`read`+1 where id={$id}";
+        echo $sql;
+        return $this->pdo->exec($sql);
     }
 }

@@ -49,6 +49,9 @@ final class IndexController extends BaseController{
     //文章详细内容
     public function content(){
         $id = $_GET['id'];
+        //更新浏览次数
+        articleModel::getInstance()->updateRead($id);
+        //查找文章内容
         $articles = articleModel::getInstance()->fetchOneWithJoin("article.id=$id");
         $this->smarty->assign("article",$articles);
         $this->smarty->display("index/content.html");
