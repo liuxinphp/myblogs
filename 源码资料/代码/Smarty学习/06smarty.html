@@ -1,0 +1,30 @@
+<html>
+<header></header>
+{*配置文件加载*}
+	{config_load file='smarty_config/config.txt'}
+	{$smarty.config.bgcolor}
+</body>
+<body bgcolor="{$smarty.config.bgcolor}">
+	{$str}
+
+
+	{*数组解析*}
+	{$arr.0} ------ {$arr[0]}
+
+
+	{*对象访问*}
+	{$obj->name} ----- {$obj->age}
+
+	{*保留变量*}
+	{$smarty.get.username}
+	{$smarty.current_dir}
+	{$smarty.template}
+
+
+	{*自定义变量*}
+	{assign var='test' value='hey world'}
+	{$test}
+
+	{#pTitle#}
+	
+</html>

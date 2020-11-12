@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	
+
+	{if isset($smarty.post.username)}
+		{$smarty.post.username}
+	{else}
+		没有数据
+	{/if}
+
+	{*foreach遍历数据*}
+	{foreach from=$user key='k' item='v'}
+		{$k}:{$v@key}:{$v}<br/>
+	{/foreach}
+
+	{assign var='user1' value=array('username','age','gender')}
+        <table border=1>
+           {foreach $user1 as $value}
+        	{if $value@first} 第一次执行循环：
+                <tr>
+                    <th>下标</th>
+                    <th>循环次数</th>
+                    <th>值</th>
+                </tr>
+        	{/if}
+            <tr>
+                <td>{$value@index}</td>
+                <td>{$value@iteration}</td>
+                <td>{$value}</td>
+            </tr>
+        {/foreach} 
+        </table>
+        {if $value@show} 循环有数据，一共循环了{$value@total}次{/if}
+
+
+        {foreach from=$arr item='val'}
+        	{$val}
+        {foreachelse}
+        	没有数据o(╥﹏╥)o
+       	{/foreach}
+
+
+    {assign var='arr' value=array(1,2,3,4,5,6)}
+    {section name='id' loop=$arr max=4}
+        {$arr[id]}										
+    {/section}
+
+
+    <div>
+            <a href="javascript:show()">点我</a>
+    </div>
+        {literal}
+        <script>
+            function show(){
+                alert('hello world');
+            }
+        </script>
+        {/literal}
+</body>
+</html>

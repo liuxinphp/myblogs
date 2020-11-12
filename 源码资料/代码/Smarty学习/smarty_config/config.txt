@@ -1,0 +1,6 @@
+bgcolor = #00FF00
+pTitle = 'hello'
+
+
+[customer]
+pageTitle = 'Customer'
