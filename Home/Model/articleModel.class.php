@@ -35,7 +35,11 @@ final class articleModel extends BaseModel{
     //阅读次数
     public function updateRead($id){
         $sql = "update {$this->table} set `read`=`read`+1 where id={$id}";
-        echo $sql;
+        return $this->pdo->exec($sql);
+    }
+    //点赞
+    public function updatePraise($id){
+        $sql = "update {$this->table} set `praise`=`praise`+1 where id={$id}";
         return $this->pdo->exec($sql);
     }
 }

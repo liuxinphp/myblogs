@@ -53,7 +53,32 @@ final class IndexController extends BaseController{
         articleModel::getInstance()->updateRead($id);
         //查找文章内容
         $articles = articleModel::getInstance()->fetchOneWithJoin("article.id=$id");
-        $this->smarty->assign("article",$articles);
+        //上一条下一条
+        $arr[] = articleModel::getInstance()->fetchOneWithJoin("article.id<$id","article.id desc");
+        $arr[] = articleModel::getInstance()->fetchOneWithJoin("article.id>$id","article.id asc");
+        $this->smarty->assign(array(
+            "article"=>$articles,
+            "arr"=>$arr
+        ));
         $this->smarty->display("index/content.html");
+    }
+    //点赞
+    public function praise(){
+        $id=$_GET['id'];
+        //判断是否登录
+        if(isset($_SESSION['username'])){
+            //判断文章是否点赞过
+            if(!isset($_SESSION['parise'][$id])){
+                //更改当前ID状态
+                $_SESSION['parise'][$id]=1;
+                articleModel::getInstance()->updatePraise($id);
+                //跳回原页面
+                $this->jump("点赞成功","?c=index&a=content&id=$id");
+            }else{
+                $this->jump("已点赞","?c=index&a=content&id=$id");
+            }
+        }else{
+            $this->jump("请登录再点赞","./admin.php");
+        }
     }
 }
