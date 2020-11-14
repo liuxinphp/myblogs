@@ -4,7 +4,8 @@ use \Home\Model\articleModel;
 use \Home\Model\linkModel;
 use \Home\Model\IndexModel;
 use \Frame\libs\BaseController;
-use Home\Model\categoryModel;
+use \Home\Model\categoryModel;
+use \Home\Model\commentModel;
 
 final class IndexController extends BaseController{
     public function index(){
@@ -36,13 +37,18 @@ final class IndexController extends BaseController{
             $pageStr = $pageObj->showPage();
         //(7)获取首页文章列表数据
         $articles = articleModel::getInstance()->fetchAllwithJoin($where,$startRow,$pageSize);
+        //获取评论数量
+       $comments = commentModel::getInstance()->comments();
+       // var_dump($articles);
+        //die();
         $this->smarty->assign(
             array(
                 'links'=>$links,
                 'categorys'=>$categorys,
                 'months'=>$months,
                 'articles'=>$articles,
-                'pageStr'=>$pageStr
+                'pageStr'=>$pageStr,
+                'comments'=>$comments
             ));
         $this->smarty->display("index/index.html");
     }
@@ -80,5 +86,28 @@ final class IndexController extends BaseController{
         }else{
             $this->jump("请登录再点赞","./admin.php");
         }
+    }
+    //评论
+    public function comment(){
+        $id=$_GET['id'];
+        //查询文章信息
+        $articles = articleModel::getInstance()->fetchOnewithJoin();
+        $data['content'] = $_POST['comment'];
+        $data['user_id'] = $articles['user_id'];
+        $data['article_id'] = $id;
+        $data['create_time'] = time();
+        //判断是否登录
+        if(isset($_SESSION['username'])){
+            $modelObj = commentModel::getInstance();
+            if($modelObj->insert($data)){
+                $this->jump("评论成功","?c=index&a=content&id=$id");
+            }else{
+                $this->jump("评论失败","?c=index&a=content");
+            }
+        }else{
+            $this->jump("请先登录再评论","./admin.php");
+        }
+        
+        
     }
 }

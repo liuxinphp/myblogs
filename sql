@@ -46,7 +46,8 @@ domain varchar(30) not null
 //评论表
 create table if not exists `comment`(
 id int not null primary key auto_increment,
-user varchar(50) not null,
+article_id int not null,
+user_id int not null,
 content text not null,
-time int(20) not null
+create_time date not null
 )ENGINE=MYISAM charset=utf8;
