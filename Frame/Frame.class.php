@@ -5,9 +5,9 @@ final class Frame{
         self::initCharset();
         self::initConfig();
         self::initRoute();
-        self::initConst();
+        self::initConst();//常量
         self::initAutoload();
-        self::initDispatch();
+        self::initDispatch();//静态分发
     }
     //设置字符集
     private static function initCharset(){

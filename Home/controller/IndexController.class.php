@@ -32,6 +32,7 @@ final class IndexController extends BaseController{
         );
         if(!empty($_REQUEST['title'])) $params['title']=$_REQUEST['title'];
         if(!empty($_GET['category_id'])) $params['category_id']=$_REQUEST['category_id'];
+		
             //(6)调用分类
             $pageObj = new \Frame\vendor\pager($records,$pageSize,$page,$params);
             $pageStr = $pageObj->showPage();
